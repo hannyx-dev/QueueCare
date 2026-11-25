@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | QueueCare</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 550px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            color: #243b53;
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #ccd2d8;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        input[readonly] {
+            background: #f0f2f5;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 12px 20px;
+            background: #2463a6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            color: #2463a6;
+            text-decoration: none;
+        }
+
+        .message {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background: #e8f5e9;
+            color: #256029;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Profile</h1>
+        <p>View and update your personal information.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="message">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST">
+            <label for="full_name">Full Name</label>
+            <input
+                type="text"
+                id="full_name"
+                name="full_name"
+                value="{{ user.full_name }}"
+                maxlength="100"
+                required
+            >
+
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                id="email"
+                value="{{ user.email }}"
+                readonly
+            >
+
+            <label for="contact">Contact Number</label>
+            <input
+                type="text"
+                id="contact"
+                name="contact"
+                value="{{ user.contact or '' }}"
+                maxlength="20"
+            >
+
+            <button type="submit">Save Changes</button>
+        </form>
+
+        <a class="back" href="{{ url_for('patient.dashboard') }}">
+            Back to Dashboard
+        </a>
+    </div>
+</body>
+</html>
