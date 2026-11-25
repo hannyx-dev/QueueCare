@@ -1,0 +1,1 @@
+from app.patients.routes import patient
